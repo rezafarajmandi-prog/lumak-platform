@@ -15,7 +15,7 @@ export const projects: Project[] = [
     location: 'Tehran, Iran',
     architect: 'Habibeh Madjdabadi',
     families: ['LIN', 'WW'],
-    description: 'Precision linear and wall-washing lighting integrated within gallery ceilings to create uniform illumination without visible fixtures.',
+    description: 'نورپردازی خطی دقیق و دیوارشوی یکپارچه در سقف گالری برای ایجاد روشنایی یکنواخت بدون تجهیزات قابل مشاهده.',
   },
   {
     id: 'oceanview-lobby',
@@ -23,7 +23,7 @@ export const projects: Project[] = [
     location: 'Dubai, UAE',
     architect: 'Zaha Hadid Architects',
     families: ['TRK', 'SUR'],
-    description: 'Track and surface-mounted luminaires accentuating fluid architectural lines and premium material finishes.',
+    description: 'چراغ‌های ریلی و سطحی که خطوط معماری سیال و پرداخت‌های با کیفیت را برجسته می‌کنند.',
   },
   {
     id: 'silicon-tower',
@@ -31,6 +31,6 @@ export const projects: Project[] = [
     location: 'Berlin, Germany',
     architect: 'David Chipperfield',
     families: ['REC', 'PRF'],
-    description: 'Recessed downlights and micro profiles for a clean, specification-grade workspace with high CRI requirements.',
+    description: 'چراغ‌های توکار و پروفیل‌های کوچک برای یک فضای کاری تمیز و سطح مشخصات با نیازهای CRI بالا.',
   },
 ];

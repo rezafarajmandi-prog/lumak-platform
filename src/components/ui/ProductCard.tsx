@@ -12,7 +12,7 @@ export default function ProductCard({ product }: { product: Product }) {
             [Product Image]
           </div>
         </div>
-        <h4 className="text-h4 text-warmwhite group-hover:text-bronze-light transition-colors">
+        <h4 className="text-h4 text-graphite dark:text-warmwhite group-hover:text-bronze-light transition-colors">
           {product.name}
         </h4>
         <p className="text-caption text-steel mt-1">

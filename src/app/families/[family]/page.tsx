@@ -24,7 +24,7 @@ export default async function FamilyPage({ params }: { params: Promise<{ family:
       <span className={`inline-block px-4 py-1 rounded-full text-xs font-medium ${familyData.color} text-warmwhite mb-4`}>
         {familyData.code}
       </span>
-      <h1 className="text-h1 mb-4">{familyData.name} Luminaires</h1>
+      <h1 className="text-h1 mb-4">روشنایی {familyData.name}</h1>
       <p className="text-body-lg text-steel max-w-2xl mb-12">
         {familyData.description}
       </p>
@@ -37,7 +37,7 @@ export default async function FamilyPage({ params }: { params: Promise<{ family:
           ))}
         </div>
       ) : (
-        <p className="text-steel text-body">No products available for this family yet.</p>
+        <p className="text-steel text-body">فعلاً محصولی برای این خانواده در دسترس نیست.</p>
       )}
     </section>
   );

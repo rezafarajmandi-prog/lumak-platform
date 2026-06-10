@@ -21,7 +21,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         href={`/families/${product.family}`}
         className="text-steel hover:text-bronze transition-colors text-sm mb-6 inline-block"
       >
-        ← Back to {family?.name ?? product.family}
+        ← بازگشت به {family?.name ?? product.family}
       </Link>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-4">
@@ -42,7 +42,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           {/* مشخصات فنی */}
           <div className="grid grid-cols-2 gap-4 mb-8">
             <div className="border border-steel/20 rounded-sm p-4">
-              <span className="text-caption text-steel">Wattage</span>
+              <span className="text-caption text-steel">توان</span>
               <p className="text-h4 text-warmwhite mt-1">{product.wattage}W</p>
             </div>
             <div className="border border-steel/20 rounded-sm p-4">
@@ -54,15 +54,15 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               <p className="text-h4 text-warmwhite mt-1">{product.cri}</p>
             </div>
             <div className="border border-steel/20 rounded-sm p-4">
-              <span className="text-caption text-steel">Ingress Protection</span>
+              <span className="text-caption text-steel">محافظت نفوذ</span>
               <p className="text-h4 text-warmwhite mt-1">{product.ip}</p>
             </div>
           </div>
 
           {/* دکمه‌های دانلود و درخواست */}
           <div className="flex flex-wrap gap-4">
-            <Button variant="primary">Request Specification</Button>
-            <Button variant="secondary">Download Datasheet</Button>
+            <Button variant="primary">درخواست مشخصات</Button>
+            <Button variant="secondary">دانلود دیتاشیت</Button>
             <Button variant="ghost">IES / BIM</Button>
           </div>
         </div>

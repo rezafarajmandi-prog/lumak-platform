@@ -1,49 +1,45 @@
-import React from 'react';
+import React from "react";
 
 type ButtonProps = {
-  variant?: 'primary' | 'secondary' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "ghost";
+  size?: "sm" | "md" | "lg";
   children: React.ReactNode;
   href?: string;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+} & React.ComponentPropsWithoutRef<'button'> & React.ComponentPropsWithoutRef<'a'>;
 
 export default function Button({
-  variant = 'primary',
-  size = 'md',
+  variant = "primary",
+  size = "md",
   className,
   children,
   href,
   ...props
 }: ButtonProps) {
-  // کلاس‌های پایه
   const baseClasses =
-    'inline-flex items-center justify-center font-medium transition-all duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-bronze';
+    "inline-flex items-center justify-center font-medium transition-all duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-graphite/30 dark:focus:ring-warmwhite/30";
 
-  // variant‌ها
   const variantClasses = {
     primary:
-      'bg-bronze text-warmwhite rounded-full hover:bg-bronze-hover active:bg-bronze-active shadow-btn-hover disabled:opacity-40 disabled:hover:bg-bronze',
+      "bg-graphite text-warmwhite dark:bg-white dark:text-graphite rounded-md hover:bg-graphite-light dark:hover:bg-steel-light active:bg-graphite/90 dark:active:bg-warmwhite/90 shadow-btn-hover disabled:opacity-40",
     secondary:
-      'bg-transparent border border-bronze text-warmwhite rounded-sm hover:bg-bronze/10 active:bg-bronze/20',
+      "bg-transparent border border-graphite dark:border-warmwhite text-graphite dark:text-warmwhite rounded-md hover:bg-graphite/10 dark:hover:bg-warmwhite/10 active:bg-graphite/20 dark:active:bg-warmwhite/20",
     ghost:
-      'bg-transparent text-steel border border-steel/30 rounded-sm hover:text-warmwhite hover:border-warmwhite/30',
+      "bg-transparent text-steel border border-steel/30 rounded-md hover:text-graphite dark:hover:text-warmwhite hover:border-graphite/30 dark:hover:border-warmwhite/30",
   };
 
-  // sizeها
   const sizeClasses = {
-    sm: 'h-8 px-4 text-xs',
-    md: 'h-11 px-6 text-sm',
-    lg: 'h-14 px-8 text-base',
+    sm: "h-8 px-4 text-xs",
+    md: "h-11 px-6 text-sm",
+    lg: "h-14 px-8 text-base",
   };
 
-  // اگر href داشته باشه از <a> استفاده کن
-  const Comp = href ? 'a' : 'button';
+  const Comp = href ? "a" : "button";
 
   return (
     <Comp
       href={href}
-      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className ?? ''}`}
-      {...(props as any)}
+      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className ?? ""}`}
+      {...props}
     >
       {children}
     </Comp>

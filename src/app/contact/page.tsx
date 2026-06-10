@@ -4,6 +4,7 @@ import { useState, FormEvent } from 'react';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Textarea from '@/components/ui/Textarea';
+import { useTranslation } from '@/components/LanguageProvider';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ export default function ContactPage() {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const t = useTranslation();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -37,12 +39,10 @@ export default function ContactPage() {
     return (
       <section className="py-24 md:py-32 px-4 md:px-8 max-w-2xl mx-auto text-center">
         <div className="bg-graphite-light border border-bronze/20 rounded-md p-12">
-          <h2 className="text-h2 text-warmwhite mb-4">Thank You</h2>
-          <p className="text-body text-steel mb-6">
-            Your inquiry has been received. Our specification team will respond within 24 hours.
-          </p>
+          <h2 className="text-h2 text-warmwhite mb-4">{t.contact.thankYouTitle}</h2>
+          <p className="text-body text-steel mb-6">{t.contact.thankYouText}</p>
           <Button variant="primary" onClick={() => setSubmitted(false)}>
-            Submit Another Request
+            {t.contact.submitAnother}
           </Button>
         </div>
       </section>
@@ -51,21 +51,19 @@ export default function ContactPage() {
 
   return (
     <section className="py-24 md:py-32 px-4 md:px-8 max-w-3xl mx-auto">
-      <h1 className="text-h1 mb-4">Contact LUMAK</h1>
-      <p className="text-body-lg text-steel mb-12">
-        Request technical specifications, pricing, or project consultation.
-      </p>
+      <h1 className="text-h1 mb-4">{t.contact.title}</h1>
+      <p className="text-body-lg text-steel mb-12">{t.contact.subtitle}</p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Input
-            label="Full Name"
+            label={t.contact.fullName}
             required
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
           <Input
-            label="Company / Firm"
+            label={t.contact.company}
             required
             value={formData.company}
             onChange={(e) => setFormData({ ...formData, company: e.target.value })}
@@ -74,22 +72,22 @@ export default function ContactPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="flex flex-col gap-1">
-            <label className="text-caption text-steel">Job Title</label>
+            <label className="text-caption text-steel">{t.contact.jobTitle}</label>
             <select
               className="bg-graphite-light border border-steel/30 rounded-sm px-4 py-3 text-warmwhite text-body focus:border-bronze focus:outline-none"
               value={formData.jobTitle}
               onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
             >
-              <option value="">Select...</option>
-              <option value="Architect">Architect</option>
-              <option value="Interior Designer">Interior Designer</option>
-              <option value="Contractor">Contractor</option>
-              <option value="Developer">Developer</option>
-              <option value="Other">Other</option>
+              <option value="">{t.contact.selectPlaceholder}</option>
+              {t.contact.jobOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </select>
           </div>
           <Input
-            label="Email"
+            label={t.contact.email}
             type="email"
             required
             value={formData.email}
@@ -98,16 +96,16 @@ export default function ContactPage() {
         </div>
 
         <Input
-          label="Phone (optional)"
+          label={t.contact.phone}
           type="tel"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
         />
 
         <fieldset>
-          <legend className="text-caption text-steel mb-3">Request Type</legend>
+          <legend className="text-caption text-steel mb-3">{t.contact.requestTypeLegend}</legend>
           <div className="flex flex-wrap gap-3">
-            {['Project Consultation', 'Catalog Request', 'Pricing', 'Dealership'].map((type) => (
+            {t.contact.requestTypes.map((type) => (
               <label
                 key={type}
                 className={`px-4 py-2 rounded-full border text-sm cursor-pointer transition-colors ${
@@ -129,14 +127,14 @@ export default function ContactPage() {
         </fieldset>
 
         <Textarea
-          label="Project Details (optional)"
+          label={t.contact.projectDetails}
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          placeholder="Briefly describe your project requirements..."
+          placeholder={t.contact.projectDetailsPlaceholder}
         />
 
         <Button type="submit" variant="primary" size="lg" className="w-full md:w-auto">
-          Send Inquiry
+          {t.contact.submit}
         </Button>
       </form>
     </section>

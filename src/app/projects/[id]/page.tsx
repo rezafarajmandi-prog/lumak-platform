@@ -14,7 +14,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
   return (
     <section className="py-24 md:py-32 px-4 md:px-8 max-w-5xl mx-auto">
       <Link href="/projects" className="text-steel hover:text-bronze transition-colors text-sm mb-6 inline-block">
-        ← Back to Projects
+        ← بازگشت به پروژه‌ها
       </Link>
 
       {/* تصویر پروژه (placeholder) */}
@@ -29,7 +29,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
 
       <p className="text-body text-warmwhite/80 mb-8">{project.description}</p>
 
-      <h2 className="text-h3 mb-4">Products Used</h2>
+      <h2 className="text-h3 mb-4">محصولات استفاده‌شده</h2>
       <div className="flex flex-wrap gap-3">
         {project.families.map((code) => {
           const fam = families.find((f) => f.code === code);

@@ -1,39 +1,32 @@
 @import "tailwindcss";
 
-/* ===== فعال‌سازی Dark Mode با کلاس (دستی) ===== */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ===== Design System برند LUMAK ===== */
 @theme {
-  /* رنگ‌های اصلی */
+  /* رنگ‌ها */
   --color-graphite: #16181D;
   --color-graphite-light: #2C2F38;
   --color-graphite-dark: #0E1014;
-
   --color-steel: #7B818A;
   --color-steel-light: #9BA1A8;
-
   --color-warmwhite: #F4F5F7;
   --color-warmwhite-dark: #E5E7EB;
-
   --color-bronze: #9E7A47;
   --color-bronze-light: #C4A882;
   --color-bronze-dark: #7A5C32;
   --color-bronze-hover: #B08A55;
   --color-bronze-active: #8A6A3A;
-
-  /* رنگ‌های معنایی */
   --color-success: #4A8C6F;
   --color-warning: #C4943A;
   --color-error: #B85C52;
   --color-info: #4A6C8C;
 
-  /* فونت‌ها */
-  --font-sans: 'DM Sans', 'Manrope', sans-serif;
-  --font-heading: 'DM Sans', 'Peyda', sans-serif;
-  --font-body: 'Manrope', 'Dana', sans-serif;
+  /* فونت‌ها – فقط یک بار تعریف شود */
+  --font-sans: var(--font-dana), var(--font-inter), sans-serif;
+  --font-heading: var(--font-peyda), var(--font-din), sans-serif;
+  --font-body: var(--font-dana), var(--font-inter), sans-serif;
 
-  /* اندازه‌های تایپوگرافی */
+  /* اندازه‌ها */
   --text-h1: 3rem;
   --text-h1--line-height: 1.2;
   --text-h1--letter-spacing: -0.02em;
@@ -93,14 +86,66 @@
   --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.6);
   --shadow-btn-hover: 0 4px 16px rgba(158, 122, 71, 0.3);
 
-  /* Easing */
   --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-architectural: cubic-bezier(0.33, 1, 0.68, 1);
+
+  --background-page: var(--color-warmwhite);
+  --background-surface: var(--color-warmwhite-dark);
+  --background-panel: var(--color-warmwhite);
+  --text-primary: var(--color-graphite);
+  --text-secondary: var(--color-steel);
+  --border-default: rgba(158, 122, 71, 0.1);
+}
+
+.dark {
+  --background-page: var(--color-graphite);
+  --background-surface: var(--color-graphite-light);
+  --background-panel: var(--color-graphite-dark);
+  --text-primary: var(--color-warmwhite);
+  --text-secondary: var(--color-steel-light);
+  --border-default: rgba(158, 122, 71, 0.2);
+}
+
+/* ===== کلاس کمکی برای شفافیت هدر (غلبه بر هر استایل مزاحم) ===== */
+.navbar-transparent {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
 }
 
 /* ===== استایل‌های پایه ===== */
 @layer base {
   body {
-    @apply bg-graphite text-warmwhite font-sans antialiased;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--background-page);
+    color: var(--text-primary);
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+/* ===== یوتیلیتی‌ها ===== */
+@layer utilities {
+  .bg-page {
+    background-color: var(--background-page);
+  }
+  .bg-surface {
+    background-color: var(--background-surface);
+  }
+  .bg-panel {
+    background-color: var(--background-panel);
+  }
+  .text-primary {
+    color: var(--text-primary);
+  }
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+  .border-default {
+    border-color: var(--border-default);
+  }
+  
 }

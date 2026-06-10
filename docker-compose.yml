@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    container_name: lumak-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      # کد برنامه
+      - ./src:/app/src
+      # فایل‌های عمومی
+      - ./public:/app/public
+      # فایل‌های پیکربندی
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./next.config.ts:/app/next.config.ts
+      - ./postcss.config.mjs:/app/postcss.config.mjs
+      - ./eslint.config.mjs:/app/eslint.config.mjs
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped

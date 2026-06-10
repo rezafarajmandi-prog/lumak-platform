@@ -14,9 +14,15 @@ export default function Input({ label, error, className, id, ...props }: InputPr
       </label>
       <input
         id={inputId}
-        className={`bg-graphite-light border border-steel/30 rounded-sm px-4 py-3 text-warmwhite text-body placeholder:text-steel/50 focus:border-bronze focus:outline-none transition-colors duration-150 ${
-          error ? 'border-error' : ''
-        } ${className ?? ''}`}
+        className={`
+          bg-white dark:bg-graphite-light
+          border border-steel/30 rounded-sm px-4 py-3
+          text-graphite dark:text-warmwhite text-body
+          placeholder:text-steel/50 dark:placeholder:text-steel/50
+          focus:border-bronze focus:outline-none transition-colors duration-150
+          ${error ? 'border-error' : ''}
+          ${className ?? ''}
+        `}
         {...props}
       />
       {error && <span className="text-caption text-error">{error}</span>}

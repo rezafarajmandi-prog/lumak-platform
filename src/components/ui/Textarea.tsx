@@ -12,9 +12,15 @@ export default function Textarea({ label, error, className, id, ...props }: Text
       <label htmlFor={inputId} className="text-caption text-steel">{label}</label>
       <textarea
         id={inputId}
-        className={`bg-graphite-light border border-steel/30 rounded-sm px-4 py-3 text-warmwhite text-body placeholder:text-steel/50 focus:border-bronze focus:outline-none transition-colors duration-150 resize-vertical ${
-          error ? 'border-error' : ''
-        } ${className ?? ''}`}
+        className={`
+          bg-white dark:bg-graphite-light
+          border border-steel/30 rounded-sm px-4 py-3
+          text-graphite dark:text-warmwhite text-body
+          placeholder:text-steel/50 dark:placeholder:text-steel/50
+          focus:border-bronze focus:outline-none transition-colors duration-150 resize-vertical
+          ${error ? 'border-error' : ''}
+          ${className ?? ''}
+        `}
         rows={4}
         {...props}
       />

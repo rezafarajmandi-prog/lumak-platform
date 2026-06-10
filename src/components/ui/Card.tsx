@@ -10,8 +10,8 @@ export default function Card({ children, className, hover = false }: CardProps) 
   return (
     <div
       className={`
-        bg-graphite-light border border-steel/20 rounded-md overflow-hidden
-        ${hover ? 'transition-all duration-200 ease-out hover:border-bronze/60 hover:bg-graphite-light/80 hover:shadow-card' : ''}
+        bg-white dark:bg-graphite-light border border-steel/20 rounded-md overflow-hidden
+        ${hover ? 'transition-all duration-200 ease-out hover:border-steel/20 dark:hover:bg-graphite-light/80 hover:shadow-card' : ''}
         ${className ?? ''}
       `}
     >

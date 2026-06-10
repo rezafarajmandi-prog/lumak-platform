@@ -21,7 +21,7 @@ export const products: Product[] = [
     cct: 3000,
     cri: 90,
     ip: 'IP20',
-    description: 'Slim continuous linear fixture for ceiling integration.',
+    description: 'چراغ خطی باریک پیوسته برای یکپارچه‌سازی سقف.',
   },
   {
     id: 'lin-90-12w-4k',
@@ -32,7 +32,7 @@ export const products: Product[] = [
     cct: 4000,
     cri: 90,
     ip: 'IP20',
-    description: 'Compact linear solution for cove and accent lighting.',
+    description: 'راهکار خطی جمع‌وجور برای روشنایی کنج و تأکیدی.',
   },
   // Track
   {
@@ -44,7 +44,7 @@ export const products: Product[] = [
     cct: 3000,
     cri: 92,
     ip: 'IP20',
-    description: 'Adjustable track spot for retail and gallery.',
+    description: 'اسپات ریلی قابل تنظیم برای فروشگاه و گالری.',
   },
   {
     id: 'trk-100-25w-4k',
@@ -55,7 +55,7 @@ export const products: Product[] = [
     cct: 4000,
     cri: 90,
     ip: 'IP44',
-    description: 'Wide beam track light for exhibition spaces.',
+    description: 'چراغ ریلی با پرتو گسترده برای فضاهای نمایشگاهی.',
   },
   // Surface
   {
@@ -67,7 +67,7 @@ export const products: Product[] = [
     cct: 3000,
     cri: 92,
     ip: 'IP54',
-    description: 'Surface-mounted downlight with architectural finish.',
+    description: 'چراغ سقفی سطحی با پایان معماری.',
   },
   // Recessed
   {
@@ -79,7 +79,7 @@ export const products: Product[] = [
     cct: 3000,
     cri: 90,
     ip: 'IP20',
-    description: 'Minimal recessed downlight for clean ceilings.',
+    description: 'چراغ توکار مینیمال برای سقف‌های تمیز.',
   },
   // Wall Washer
   {
@@ -91,7 +91,7 @@ export const products: Product[] = [
     cct: 3000,
     cri: 90,
     ip: 'IP20',
-    description: 'Asymmetric optic for uniform wall illumination.',
+    description: 'اپتیک نامتقارن برای روشنایی یکنواخت دیوار.',
   },
   // Profiles
   {
@@ -103,6 +103,6 @@ export const products: Product[] = [
     cct: 3000,
     cri: 95,
     ip: 'IP20',
-    description: 'Ultra-compact profile for furniture integration.',
+    description: 'پروفیل فوق‌فشرده برای یکپارچه‌سازی با مبلمان.',
   },
 ];
