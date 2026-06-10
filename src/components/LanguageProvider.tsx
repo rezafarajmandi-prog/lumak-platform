@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import {
   defaultLanguage,
@@ -10,17 +16,23 @@ import {
   type Translations,
 } from "@/lib/i18n";
 
+type Direction = "rtl" | "ltr";
+
 type LanguageContextValue = {
   language: Language;
   setLanguage: (language: Language) => void;
-  direction: "rtl" | "ltr";
+  direction: Direction;
   t: Translations;
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  // ✅ SSR-safe + localStorage init
+export function LanguageProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  // SSR-safe init
   const [language, setLanguage] = useState<Language>(() => {
     if (typeof window === "undefined") return defaultLanguage;
 
@@ -29,23 +41,26 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return stored ?? (navigator.language.startsWith("fa") ? "fa" : "en");
   });
 
-  // sync DOM + localStorage
+  // sync DOM + storage
   useEffect(() => {
+    const dir: Direction = getDirection(language) as Direction;
+
     document.documentElement.lang = language;
-    document.documentElement.dir = getDirection(language);
+    document.documentElement.dir = dir;
 
     localStorage.setItem("lumak-language", language);
   }, [language]);
 
-  const value = useMemo(
-    () => ({
+  const value: LanguageContextValue = useMemo(() => {
+    const dir: Direction = getDirection(language) as Direction;
+
+    return {
       language,
       setLanguage,
-      direction: getDirection(language) as "rtl" | "ltr",
+      direction: dir,
       t: translations[language],
-    }),
-    [language],
-  );
+    };
+  }, [language]);
 
   return (
     <LanguageContext.Provider value={value}>
