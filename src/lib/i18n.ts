@@ -1,4 +1,7 @@
+// src/lib/i18n.ts
+
 export type Language = 'fa' | 'en';
+export type Direction = 'rtl' | 'ltr';
 
 export type TranslatedString = {
   en: string;
@@ -7,7 +10,7 @@ export type TranslatedString = {
 
 export const defaultLanguage: Language = 'fa';
 
-export function getDirection(language: Language) {
+export function getDirection(language: Language): Direction {
   return language === 'fa' ? 'rtl' : 'ltr';
 }
 

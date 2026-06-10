@@ -1,3 +1,5 @@
+// src/components/LanguageProvider.tsx
+
 "use client";
 
 import {
@@ -12,9 +14,9 @@ import {
   defaultLanguage,
   getDirection,
   translations,
+  type Direction,
   type Language,
   type Translations,
-  type Direction,
 } from "@/lib/i18n";
 
 type LanguageContextValue = {
@@ -26,31 +28,21 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function LanguageProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  // SSR-safe initial state
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>(() => {
     if (typeof window === "undefined") return defaultLanguage;
 
     const stored = localStorage.getItem("lumak-language") as Language | null;
-
     return stored ?? (navigator.language.startsWith("fa") ? "fa" : "en");
   });
 
-  // sync HTML + localStorage
   useEffect(() => {
     const dir = getDirection(language);
-
     document.documentElement.lang = language;
     document.documentElement.dir = dir;
-
     localStorage.setItem("lumak-language", language);
   }, [language]);
 
-  // context value
   const value = useMemo<LanguageContextValue>(() => {
     return {
       language,
@@ -67,7 +59,6 @@ export function LanguageProvider({
   );
 }
 
-// hooks
 export function useLanguage() {
   const ctx = useContext(LanguageContext);
   if (!ctx) throw new Error("useLanguage must be used within LanguageProvider");
@@ -76,7 +67,6 @@ export function useLanguage() {
 
 export function useTranslation() {
   const ctx = useContext(LanguageContext);
-  if (!ctx)
-    throw new Error("useTranslation must be used within LanguageProvider");
+  if (!ctx) throw new Error("useTranslation must be used within LanguageProvider");
   return ctx.t;
 }
