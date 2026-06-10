@@ -1,44 +1,52 @@
+export type Family = {
+  code: string;
+  name: string;
+  slug: string;
+  description: string;
+  color: string;
+};
+
 export const families: Family[] = [
   {
     code: 'LIN',
     name: 'Linear',
     slug: 'lin',
     description: 'Precision linear lighting for architectural ceilings.',
-    color: 'bg-graphite',   // تیره، مناسب
+    color: 'bg-graphite',
   },
   {
     code: 'TRK',
     name: 'Track',
     slug: 'trk',
     description: 'Flexible track systems for galleries and retail.',
-    color: 'bg-steel',      // تیره، مناسب
+    color: 'bg-steel',
   },
   {
     code: 'SUR',
     name: 'Surface',
     slug: 'sur',
     description: 'Surface-mounted luminaires with premium restraint.',
-    color: 'bg-bronze-dark', // قبلاً bg-bronze-light بود → تیره‌تر برای خوانایی
+    color: 'bg-bronze-dark',
   },
   {
     code: 'REC',
     name: 'Recessed',
     slug: 'rec',
     description: 'Clean recessed downlights for minimal ceilings.',
-    color: 'bg-graphite-light', // قبلاً bg-warmwhite بود → تیره‌تر
+    color: 'bg-graphite-light',
   },
   {
     code: 'WW',
     name: 'Wall Washer',
     slug: 'ww',
     description: 'Directional wall-washing for texture and depth.',
-    color: 'bg-bronze',     // تیره، مناسب
+    color: 'bg-bronze',
   },
   {
     code: 'PRF',
     name: 'Profiles',
     slug: 'prf',
     description: 'Detail-oriented profiles for precise integration.',
-    color: 'bg-bronze-dark', // تیره، مناسب
+    color: 'bg-bronze-dark',
   },
 ];
