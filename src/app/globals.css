@@ -816,6 +816,24 @@
     animation: showSearchInput 300ms var(--ease-out) forwards;
   }
 
+  @media (min-width: 1200px) {
+    .header--search-open {
+      position: sticky;
+      top: 0;
+      transform: translateY(0);
+      z-index: 90;
+    }
+
+    .header--search-open .header__panel {
+      display: block;
+      top: var(--header-height);
+    }
+
+    .header:not(.header--search-open) .header__panel {
+      display: none;
+    }
+  }
+
   .search-panel__header {
     align-items: center;
     display: flex;

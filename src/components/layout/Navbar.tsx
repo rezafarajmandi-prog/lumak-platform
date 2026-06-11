@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { useTranslation } from '@/components/LanguageProvider';
 
 type NavItem = {
@@ -22,6 +22,29 @@ type NavigationState = {
   mobilePanel: string | null;
   searchOpen: boolean;
 };
+
+const serverScrollSnapshot = 'top:normal';
+
+function getScrollSnapshot() {
+  if (typeof window === 'undefined') {
+    return serverScrollSnapshot;
+  }
+
+  const y = window.scrollY;
+  const position = y < 10 ? 'top' : 'scrolled';
+  const size = y > 72 ? 'small' : 'normal';
+  return `${position}:${size}`;
+}
+
+function subscribeToScroll(callback: () => void) {
+  window.addEventListener('scroll', callback, { passive: true });
+  window.addEventListener('resize', callback);
+
+  return () => {
+    window.removeEventListener('scroll', callback);
+    window.removeEventListener('resize', callback);
+  };
+}
 
 const triluxSearchPath =
   'M 964.500 1.053 C 844.580 8.539, 736.659 33.560, 627 79.301 C 524.296 122.141, 429.492 181.520, 345 255.925 C 313.159 283.965, 272.383 325.549, 243.436 359.500 C 112.414 513.176, 28.323 707.470, 6.044 908 C 2.141 943.128, 0.863 965.383, 0.303 1008 C -0.291 1053.172, 0.574 1078.210, 4.052 1116.500 C 19.285 1284.245, 77.284 1447.702, 172.038 1589.927 C 212.220 1650.242, 251.939 1698.298, 303.996 1749.587 C 367.766 1812.416, 430.366 1860.388, 507.290 1905.376 C 634.931 1980.026, 782.420 2027.153, 930 2040.446 C 988.396 2045.706, 1054.895 2045.706, 1114.500 2040.446 C 1224.253 2030.761, 1332.056 2002.686, 1437 1956.456 C 1460.075 1946.292, 1508.857 1921.632, 1530.881 1908.999 C 1581.880 1879.746, 1631.255 1845.591, 1674 1809.996 C 1680.325 1804.729, 1686.115 1800.041, 1686.867 1799.578 C 1687.863 1798.966, 1781.127 1891.596, 2030.867 2141.241 C 2219.315 2329.617, 2375.525 2485.091, 2378 2486.737 C 2384.827 2491.279, 2391.763 2494.559, 2400.025 2497.152 C 2406.488 2499.180, 2409.463 2499.489, 2422 2499.433 C 2434.463 2499.378, 2437.626 2499.023, 2444.513 2496.903 C 2469.160 2489.319, 2489.319 2469.160, 2496.903 2444.513 C 2499.023 2437.626, 2499.378 2434.463, 2499.433 2422 C 2499.489 2409.463, 2499.180 2406.488, 2497.152 2400.025 C 2494.559 2391.763, 2491.279 2384.827, 2486.737 2378 C 2485.091 2375.525, 2329.566 2219.263, 2141.126 2030.752 C 1876.077 1765.602, 1798.733 1687.690, 1799.504 1686.616 C 1800.052 1685.853, 1806.489 1677.986, 1813.810 1669.134 C 1841.352 1635.828, 1875.368 1587.566, 1898.131 1549.500 C 1977.893 1416.115, 2027.213 1265.538, 2040.448 1115 C 2043.616 1078.962, 2044.330 1061.828, 2044.322 1022 C 2044.307 941.274, 2037.142 875.691, 2019.877 798.239 C 1996.538 693.540, 1953.533 586.757, 1896.613 492.173 C 1833.464 387.238, 1748.738 291.955, 1650.477 215.369 C 1519.503 113.285, 1362.156 43.625, 1197 14.608 C 1167.101 9.355, 1132.772 5.128, 1094 1.926 C 1076.976 0.520, 983.168 -0.112, 964.500 1.053 M 979.500 157.074 C 813.069 165.102, 648.548 223.245, 512.071 322.267 C 413.981 393.437, 328.155 489.720, 268.959 595 C 169.646 771.627, 134.772 972.729, 169.072 1171 C 193.609 1312.831, 256.780 1452.356, 347.459 1565 C 384.116 1610.536, 433.040 1659.466, 478.818 1696.373 C 538.333 1744.356, 608.048 1786.443, 677 1816.017 C 795.033 1866.642, 912.478 1889.986, 1037.500 1887.673 C 1078.755 1886.910, 1104.140 1885.013, 1141 1879.940 C 1268.443 1862.401, 1394.480 1814.431, 1503.292 1742.049 C 1552.692 1709.188, 1588.772 1679.405, 1634.078 1634.086 C 1669.480 1598.675, 1689.346 1575.880, 1716.948 1539 C 1793.858 1436.237, 1849.440 1309.048, 1873.397 1181 C 1882.767 1130.915, 1886.828 1089.744, 1887.698 1036 C 1889.125 947.784, 1879.189 871.081, 1855.376 786.500 C 1830.914 699.614, 1788.556 608.900, 1737.240 533.500 C 1671.766 437.297, 1581.470 350.372, 1483.500 289.232 C 1376.517 222.467, 1254.661 178.733, 1132 163.079 C 1083.461 156.885, 1028.379 154.716, 979.500 157.074';
@@ -90,8 +113,9 @@ export default function Navbar() {
     mobilePanel: null,
     searchOpen: false,
   }));
-  const [isAtTop, setIsAtTop] = useState(() => (typeof window === 'undefined' ? true : window.scrollY < 10));
-  const [isSmall, setIsSmall] = useState(() => (typeof window === 'undefined' ? false : window.scrollY > 72));
+  const scrollSnapshot = useSyncExternalStore(subscribeToScroll, getScrollSnapshot, () => serverScrollSnapshot);
+  const isAtTop = scrollSnapshot.startsWith('top');
+  const isSmall = scrollSnapshot.endsWith('small');
   const [searchValue, setSearchValue] = useState('');
 
   const navItems = useMemo<NavItem[]>(
@@ -188,17 +212,6 @@ export default function Navbar() {
   const searchHasResults = searchValue.trim().length >= 3;
   const overlayOpen = Boolean(activeMenu || mobileOpen || searchOpen);
   const transparent = isHome && isAtTop && !overlayOpen;
-
-  useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      setIsAtTop(y < 10);
-      setIsSmall(y > 72);
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = overlayOpen ? 'hidden' : '';

@@ -257,8 +257,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Slider */}
-      <section className="relative min-h-screen -mt-18 bg-graphite overflow-hidden">
-        <div className="absolute inset-0 z-0">
+<section className="relative min-h-[calc(100vh+72px)] -mt-[72px] md:min-h-[calc(100vh+88px)] md:-mt-[88px] bg-graphite overflow-hidden">        <div className="absolute inset-0 z-0">
           {heroSlides.map((slide, index) => (
             <div key={index} className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
               {slide.type === 'image' ? (
