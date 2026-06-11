@@ -5,6 +5,10 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { LanguageProvider } from '@/components/LanguageProvider';
+import { cookies } from 'next/headers';
+import type { Language } from '@/lib/i18n'; // در صورت نیاز برای type safety
+
+
 
 // فونت فارسی Peyda
 const peyda = localFont({
@@ -62,11 +66,21 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+// ✅ تابع async شود
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // خواندن کوکی‌ها (حتماً await)
+  const cookieStore = await cookies(); // 👈 اینجا await اضافه شد
+  const rawLocale = cookieStore.get('NEXT_LOCALE')?.value;
+
+  // اطمینان از اینکه مقدار locale حتماً از نوع Language باشد
+  const locale: Language = (rawLocale === 'fa' || rawLocale === 'en') ? rawLocale : 'fa';
+
+  const isRtl = locale === 'fa';
+
   return (
     <html
-      lang="fa"
-      dir="rtl"
+      lang={locale}
+      dir={isRtl ? 'rtl' : 'ltr'}
       className={`${peyda.variable} ${dana.variable} ${inter.variable} ${dinPro.variable}`}
     >
       <body
@@ -74,7 +88,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         suppressHydrationWarning
       >
         <ThemeProvider>
-          <LanguageProvider>
+          <LanguageProvider initialLocale={locale}>
             <Navbar />
             <main className="grow">{children}</main>
             <Footer />

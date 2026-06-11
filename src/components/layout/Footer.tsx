@@ -5,10 +5,12 @@ import { useTranslation, useLanguage } from "@/components/LanguageProvider";
 import { useTheme } from "@/components/ThemeProvider";
 import { translateField } from "@/lib/i18n";
 import { families } from "@/data/families";
+import { useState, useEffect } from 'react';
 
 export default function Footer() {
   const t = useTranslation();
   const { language, setLanguage } = useLanguage();
+  const [mounted, setMounted] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
   // کلیدهای ترجمه با fallback برای سازگاری با هر دو زبان
@@ -196,12 +198,17 @@ export default function Footer() {
           </button>
 
           <button
-            onClick={toggleTheme}
-            className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-steel/15 text-steel dark:text-warmwhite hover:bg-surface/80 transition-colors"
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? "☀️" : "🌙"}
-          </button>
+        onClick={toggleTheme}
+        className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-steel/15 text-steel dark:text-warmwhite"
+        aria-label="Toggle theme"
+      >
+        {mounted ? (
+          theme === 'dark' ? '🌙' : '☀️'
+        ) : (
+          // اینجا یک placeholder ثابت بگذارید که با سرور هماهنگ باشد
+          <span className="opacity-0">●</span> 
+        )}
+      </button>
         </div>
       </div>
     </footer>

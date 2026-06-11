@@ -9,24 +9,24 @@ const ThemeContext = createContext<{
   toggleTheme: () => void;
 } | null>(null);
 
+// 👇 این تابع SSR-safe هست
+function getInitialTheme(): Theme {
+  if (typeof window === 'undefined') return 'dark';
+
+  const stored = localStorage.getItem('lumak-theme') as Theme | null;
+  return stored ?? 'dark';
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark'); // پیش‌فرض تاریک
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
-    const stored = localStorage.getItem('lumak-theme') as Theme | null;
-    if (stored) {
-      setTheme(stored);
-      document.documentElement.classList.toggle('dark', stored === 'dark');
-    } else {
-      document.documentElement.classList.add('dark'); // default dark
-    }
-  }, []);
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('lumak-theme', theme);
+  }, [theme]);
 
   const toggleTheme = () => {
-    const next = theme === 'dark' ? 'light' : 'dark';
-    setTheme(next);
-    localStorage.setItem('lumak-theme', next);
-    document.documentElement.classList.toggle('dark', next === 'dark');
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
   };
 
   return (

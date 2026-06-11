@@ -1,5 +1,4 @@
 // src/components/LanguageProvider.tsx
-
 "use client";
 
 import {
@@ -28,13 +27,17 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>(() => {
-    if (typeof window === "undefined") return defaultLanguage;
-
-    const stored = localStorage.getItem("lumak-language") as Language | null;
-    return stored ?? (navigator.language.startsWith("fa") ? "fa" : "en");
-  });
+export function LanguageProvider({
+  children,
+  initialLocale, // پراپ جدید
+}: {
+  children: React.ReactNode;
+  initialLocale?: Language;
+}) {
+  // ✅ مستقیماً از مقدار سرور استفاده می‌کنیم
+  const [language, setLanguage] = useState<Language>(
+    initialLocale ?? defaultLanguage
+  );
 
   useEffect(() => {
     const dir = getDirection(language);
